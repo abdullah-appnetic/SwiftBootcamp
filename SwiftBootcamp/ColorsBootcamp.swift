@@ -9,7 +9,9 @@ import SwiftUI
 
 struct ColorsBootcamp: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        RoundedRectangle(cornerRadius: 25, style: .circular)
+            .fill(.red)
+            .frame(width: 300, height: 200)
     }
 }
 
