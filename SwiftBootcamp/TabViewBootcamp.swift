@@ -8,11 +8,84 @@
 import SwiftUI
 
 struct TabViewBootcamp: View {
+    @State var selectedTab: Int = 0
+    
+    let icons: [String] = [
+        "heart.fill", "globe", "house.fill", "person.fill"
+    ]
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView(selection: $selectedTab) {
+            HomeView(selectedTab: $selectedTab)
+                .tabItem {
+                    Image(systemName: "house.fill")
+                    Text("Home")
+                }
+                .tag(0)
+            
+            Text("BROWSE TAB")
+                .tabItem {
+                    Image(systemName: "globe")
+                    Text("Browse")
+                }
+                .tag(1)
+            Text("PROFILE TAB")
+                .tabItem {
+                    Image(systemName: "person.fill")
+                    Text("Profile")
+                }
+                .tag(2)
+        }
+        .accentColor(.black)
     }
 }
 
 #Preview {
     TabViewBootcamp()
+}
+
+struct HomeView: View {
+    let icons: [String] = [
+        "heart.fill", "globe", "house.fill", "person.fill"
+    ]
+    @Binding var selectedTab: Int
+    
+    var body: some View {
+        
+        ZStack {
+            Color.red.ignoresSafeArea()
+            VStack {
+                TabView {
+                    ForEach(icons, id: \.self) { icon in
+                        Image(systemName: icon)
+                            .resizable()
+                            .scaledToFit()
+                            .padding(30)
+                    }
+                }
+                .background(
+                    RadialGradient(gradient: Gradient(colors: [Color.red, Color.blue]), center: .center, startRadius: 5, endRadius: 300)
+                )
+                .frame(height: 300)
+                .tabViewStyle(PageTabViewStyle())
+                
+                Text("Home Tab")
+                    .font(.largeTitle)
+                    .foregroundColor(.white)
+                
+                Button(action: {
+                    selectedTab = 2
+                }, label: {
+                    Text("Go to profile")
+                        .font(.headline)
+                        .padding()
+                        .padding(.horizontal)
+                        .background(Color.white)
+                        .cornerRadius(10)
+                    
+                })
+            }
+            
+        }
+    }
 }
